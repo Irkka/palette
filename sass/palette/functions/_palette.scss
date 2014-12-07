@@ -1,0 +1,12 @@
+@function palette($colors) {
+  $primary-color: map-get($colors, primary);
+  $scheme: map-get($colors, scheme);
+  $cs-brightness-offset: 5%;
+  $palette: (
+  primary-color: cs-primary($cs-primary: $primary-color, $cs-scheme: $scheme),
+  aux-color: cs-secondary($cs-primary: $primary-color, $cs-scheme: $scheme),
+  secondary-aux-color: cs-tertiary($cs-primary: $primary-color, $cs-scheme: $scheme),
+  accent-color: cs-quadrary($cs-primary: $primary-color, $cs-scheme: $scheme)
+  );
+  @return $palette;
+}

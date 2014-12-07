@@ -1,0 +1,38 @@
+@import 'palette';
+
+$colors: (
+primary: #9966ff,
+scheme: accented-analogic
+);
+
+$palette: palette($colors);
+@debug $palette;
+
+%color-container {
+  @include flex(1);
+}
+
+.default {
+  @include display(flex);
+  height: 50px;
+  .primary {
+    background: map-get($palette, primary-color);
+    @extend %color-container;
+  }
+  .secondary {
+    background: map-get($palette, aux-color);
+    @extend %color-container;
+  }
+  .tertiary {
+    background: map-get($palette, secondary-aux-color);
+    @extend %color-container;
+  }
+  .accent {
+    background: map-get($palette, accent-color);
+    @extend %color-container;
+  }
+  .grays {
+    background: map-get($palette, primary);
+    @extend %color-container;
+  }
+}
