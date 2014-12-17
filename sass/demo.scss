@@ -1,11 +1,11 @@
 @import 'palette';
 
-$colors: (
-primary: #9966ff,
-scheme: accented-analogic
+$options: (
+  primary: #124356,
+  gray: #555
 );
 
-$palette: palette($colors);
+$palette: palette($options);
 @debug $palette;
 
 %color-container {
@@ -16,23 +16,23 @@ $palette: palette($colors);
   @include display(flex);
   height: 50px;
   .primary {
-    background: map-get($palette, primary-color);
+    background: nested-map-get($palette, base primary);
     @extend %color-container;
   }
   .secondary {
-    background: map-get($palette, aux-color);
+    background: nested-map-get($palette, base secondary);
     @extend %color-container;
   }
   .tertiary {
-    background: map-get($palette, secondary-aux-color);
+    background: nested-map-get($palette, base tertiary);
     @extend %color-container;
   }
   .accent {
-    background: map-get($palette, accent-color);
+    background: nested-map-get($palette, base accent);
     @extend %color-container;
   }
   .grays {
-    background: map-get($palette, primary);
+    background: nested-map-get($palette, base grays mid);
     @extend %color-container;
   }
 }

@@ -1,12 +1,47 @@
-@function palette($colors) {
-  $primary-color: map-get($colors, primary);
-  $scheme: map-get($colors, scheme);
-  $cs-brightness-offset: 5%;
+@function base-values() {
+  @return (
+    primary: #9966ff,
+    scheme: accented-analogic,
+    brightness-offset: 5%
+  )
+}
+
+@function configure-palette($options) {
+  $base-values: base-values();
+  @return nested-map-merge($base-values, $options);
+}
+
+@function palette($options) {
+  $options: configure-palette($options);
+  @debug $options;
+
+  $primary-color: nested-map-get($options, primary);
+  $scheme: nested-map-get($options, scheme);
+  $cs-brightness-offset: nested-map-get($options, brightness-offset);
+
+  $primary: cs-primary($cs-primary: $primary-color, $cs-scheme: $scheme);
+  $secondary: cs-secondary($cs-primary: $primary-color, $cs-scheme: $scheme);
+  $tertiary: cs-tertiary($cs-primary: $primary-color, $cs-scheme: $scheme);
+  $accent: cs-quadrary($cs-primary: $primary-color, $cs-scheme: $scheme);
+  
   $palette: (
-  primary-color: cs-primary($cs-primary: $primary-color, $cs-scheme: $scheme),
-  aux-color: cs-secondary($cs-primary: $primary-color, $cs-scheme: $scheme),
-  secondary-aux-color: cs-tertiary($cs-primary: $primary-color, $cs-scheme: $scheme),
-  accent-color: cs-quadrary($cs-primary: $primary-color, $cs-scheme: $scheme)
+    base: (
+      primary: $primary,
+      secondary: $secondary,
+      tertiary: $tertiary,
+      accent: $accent,
+      grays: (
+        light: #bbb,
+        mid: #555,
+        shade: #222
+      )
+    ),
+    notifications: (
+      info: blue,
+      success: green,
+      warning: yellow,
+      failure: red
+    )
   );
   @return $palette;
 }
